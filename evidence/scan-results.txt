@@ -1,0 +1,20 @@
+
+#!/bin/bash
+
+TARGET="$1"
+
+if [ -z "$TARGET" ]; then
+    echo "Usage: ./recon.sh <target-IP>"
+    exit 1
+fi
+
+mkdir -p evidence
+
+echo "Starting scan of authorized lab target: $TARGET"
+date
+
+nmap -sV --top-ports 100 "$TARGET" \
+    -oN evidence/scan-results.txt
+
+echo "Scan finished."
+echo "Proof saved in evidence/scan-results.txt"
